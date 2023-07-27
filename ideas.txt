@@ -1,0 +1,5 @@
+To-do:
+Create chatbot where I can type questions in and I can receive answers
+Add Jarvis features and text mannerisms
+Add audio input (refer to AV processing coursework)
+Potential jarvis voice speaking back (celebrity voice ai)
