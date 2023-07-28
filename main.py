@@ -1,7 +1,10 @@
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 print("Greetings, I am JARVIS, Tony Stark's loyal personal assistant, at your service. It is with the utmost pleasure that I extend my virtual hand to assist you in any way you require. How may I be of aid to you on this fine day?")
 
 filename = "questions.txt"
-questionInput = input("Enter your question for JARVIS: ")
+running = True
+
 
 def data_read(question, path):
     answerFound = False
@@ -10,9 +13,9 @@ def data_read(question, path):
         for i in range(len(lines)):
             # Remove leading/trailing whitespaces from the line and store it in the variable 'line'.
             line = lines[i].strip()
-
+            simularity = fuzz.partial_ratio(question, line)
             # Check if the current 'line' matches the 'question'.
-            if line == question:
+            if simularity >= 80:
                 answerFound = True
                 # Check if the next line exists (i+1 < len(lines)).
                 # If it does, it means there is an answer after the matched question.
@@ -33,4 +36,11 @@ def data_read(question, path):
         if not answerFound:
             print("Jarvis: My sincere apologies, but I'm afraid I do not possess an answer for that particular inquiry. Should you require assistance with any other matter, please do not hesitate to ask.")
 
-data_read(questionInput, filename)
+while running:
+    userInput = input("Jarvis awaits your command: ")
+    if userInput == "exit":
+        print("Jarvis: It has been a pleasure serving you. Farewell.")
+        running = False
+    else:
+        data_read(userInput, filename)
+
